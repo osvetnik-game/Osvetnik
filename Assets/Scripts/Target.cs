@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -14,10 +15,16 @@ public class Target : MonoBehaviour
     public void TakeDamage(float amount)
     {
         health -= amount;
-        if(health <= 0f)
+
+        
+
+        if (health <= 0f)
         {
             Die();
         }
+        else
+            GetComponent<Animator>().SetTrigger("Hit");
+
     }
 
     private void Die()
@@ -26,7 +33,14 @@ public class Target : MonoBehaviour
         {
             GameObject.Find("LoadNextLevel").GetComponent<LoadNextLevel>().bossDead = true;
         }
-        Destroy(gameObject);
+
+        GetComponent<Animator>().SetTrigger("Dead");
+        //GetComponent<NavMeshAgent>().height = 0.001f;
+        GetComponent<NavMeshAgent>().speed = 0f;
+
+        Destroy(GetComponent<FollowPlayer>());
+        Destroy(this);
+        //Destroy(gameObject);
     }
 
     private void OnTriggerEnter(Collider other)

@@ -8,12 +8,13 @@ public class CameraControl : MonoBehaviour
 
     float xRotation = 0f;
 
-    public float mouseSensitivity = 200f;
+    public float mouseSensitivity = 50f;
 
     // Start is called before the first frame update
     void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
+        mouseSensitivity = 50f;
     }
 
     // Update is called once per frame

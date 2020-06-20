@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -13,6 +14,7 @@ public class PlayerMovement : MonoBehaviour
     Vector3 velocity;
     public bool isGrounded;
     public float jumpHeight = 4f;
+
 
     // Start is called before the first frame update
     void Start()
@@ -43,6 +45,17 @@ public class PlayerMovement : MonoBehaviour
 
         velocity.y += gravity * Time.deltaTime;
         characterController.Move(velocity * Time.deltaTime);
-    }
 
+
+        if (isGrounded && (x != 0 || z != 0))
+        {
+
+            AudioSource audio = GetComponent<AudioSource>();
+            if (!audio.isPlaying)
+            {
+                audio.Play();
+            }
+
+        }
+    }
 }
